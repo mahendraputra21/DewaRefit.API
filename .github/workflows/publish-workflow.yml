@@ -41,7 +41,8 @@ jobs:
 
       - name: Publish
         run: |
-          dotnet publish DewaRefit.API/DewaRefit.API.csproj -c Release -o out
+          mkdir -p out/DewaRefit.API  # Create the DewaRefit.API directory in out/
+          dotnet publish DewaRefit.API/DewaRefit.API.csproj -c Release -o out/DewaRefit.API
           cp DewaRefit.API/Dockerfile out/Dockerfile  # Copy Dockerfile to the out/ directory
 
       - name: Upload build artifacts
