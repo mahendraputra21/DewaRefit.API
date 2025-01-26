@@ -23,7 +23,7 @@ jobs:
           dotnet-version: "8.0.x"
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore DewaRefit.API/DewaRefit.API.csproj
 
       - name: Cache .NET build artifacts
         uses: actions/cache@v3
@@ -37,10 +37,10 @@ jobs:
             ${{ runner.os }}-dotnet-
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build DewaRefit.API/DewaRefit.API.csproj --configuration Release
 
       - name: Publish
-        run: dotnet publish -c Release -o out
+        run: dotnet publish DewaRefit.API/DewaRefit.API.csproj -c Release -o out
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
@@ -74,8 +74,8 @@ jobs:
         with:
           push: true
           tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_APP_NAME }}:${{ github.sha }}
-          file: DewaRefit.API/Dockerfile
-          context: out/
+          file: DewaRefit.API/Dockerfile  # Correct path to the Dockerfile
+          context: DewaRefit.API  # Set context to the DewaRefit.API directory
 
       - name: Azure Login
         uses: azure/login@v2
