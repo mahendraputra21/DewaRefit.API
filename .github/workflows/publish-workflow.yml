@@ -46,7 +46,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: out/
+          path: |
+            out/
+            DewaRefit.API/Dockerfile  # Include the Dockerfile in the artifact
 
   deploy:
     runs-on: ubuntu-latest
@@ -74,8 +76,8 @@ jobs:
         with:
           push: true
           tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_APP_NAME }}:${{ github.sha }}
-          file: DewaRefit.API/Dockerfile  # Correct path to the Dockerfile
-          context: DewaRefit.API  # Set context to the DewaRefit.API directory
+          file: out/Dockerfile  # Path to the Dockerfile in the artifact
+          context: out/  # Set context to the out/ directory
 
       - name: Azure Login
         uses: azure/login@v2
