@@ -1,0 +1,6 @@
+@DewaRefit.API_HostAddress = http://localhost:5130
+
+GET {{DewaRefit.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
