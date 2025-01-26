@@ -5,8 +5,8 @@ on:
    push:
      branches: [master]
 env:
-   AZURE_CONTAINER_REGISTRY: dewa-refit
-   CONTAINER_APP_NAME: dewa-refit-api
+   AZURE_CONTAINER_REGISTRY: dewarefitapi
+   CONTAINER_APP_NAME: dewarefitapi
    RESOURCE_GROUP: rg-dev2
 
 jobs:
