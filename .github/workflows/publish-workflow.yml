@@ -4,7 +4,7 @@ on:
    workflow_dispatch:
    push:
      branches: [master]
-	 
+ 
 env:
   AZURE_CONTAINER_REGISTRY: ${{ vars.AZURE_CONTAINER_REGISTRY }}
   CONTAINER_APP_NAME: ${{ vars.CONTAINER_APP_NAME }}
