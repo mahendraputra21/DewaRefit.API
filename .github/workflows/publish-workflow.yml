@@ -40,15 +40,15 @@ jobs:
         run: dotnet build DewaRefit.API/DewaRefit.API.csproj --configuration Release
 
       - name: Publish
-        run: dotnet publish DewaRefit.API/DewaRefit.API.csproj -c Release -o out
+        run: |
+          dotnet publish DewaRefit.API/DewaRefit.API.csproj -c Release -o out
+          cp DewaRefit.API/Dockerfile out/Dockerfile  # Copy Dockerfile to the out/ directory
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build-artifacts
-          path: |
-            out/
-            DewaRefit.API/Dockerfile  # Include the Dockerfile in the artifact
+          path: out/
 
   deploy:
     runs-on: ubuntu-latest
@@ -76,7 +76,7 @@ jobs:
         with:
           push: true
           tags: ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_APP_NAME }}:${{ github.sha }}
-          file: out/Dockerfile  # Path to the Dockerfile in the artifact
+          file: out/Dockerfile  # Path to the Dockerfile in the out/ directory
           context: out/  # Set context to the out/ directory
 
       - name: Azure Login
